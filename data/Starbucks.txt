@@ -1,0 +1,15 @@
+nazwa,ulica,kod,miasto
+Zodiak,ul. Widok 26,00-023,Warszawa
+Aleje Jerozolimskie,Al. Jerozolimskie 63,00-697,Warszawa
+Plac Trzech Krzyży,Plac Trzech Krzyży 16,00-499,Warszawa
+Warszawa PKP,Al. Jerozolimskie 54,00-024,Warszawa
+WFC,ul.Emilii Plater 53,00-113,Warszawa
+Nowy Świat,ul.Nowy Świat 62,00-357,Warszawa
+Rondo ONZ,ul. Śliska 10,00-127,Warszawa
+Zebra,ul.Mokotowska 1,00-635,Warszawa
+Galaxy,Aleja Solidarności 82,00-144,Warszawa
+Gruba Kaśka,al.Solidarności 68a,00-240,Warszawa
+Europlex,ul. Puławska 17,02-515,Warszawa
+Wileńska,Targowa 72,03-734,Warszawa
+Galeria Mokotów,ul. Wołoska 12,02-697,Warszawa
+Promenada,ul.Ostrobramska 75c,04-175,Warszawa

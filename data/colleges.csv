@@ -1,0 +1,201 @@
+rank_priv;rank_in;rank_out;name;state;admit_rate;grad_rate;total_cost_in;cost_based_in;total_cost_out;cost_based_out;avg_dept;salary;public;per_non_need;avg_non_need
+;1;1;University of North Carolina at Chapel Hill;NC;28;81;20935;6144;46017;31226;18945;50400;1;;
+;2;3;University of Florida;FL;47;67;17331;10553;39609;32831;20642;51300;1;;
+;3;2;University of Virginia;VA;29;87;26348;6942;55644;36238;22933;58600;1;;
+;4;6;University of California, Berkeley;CA;16;72;30093;7958;54801;32666;17584;62700;1;;
+;5;14;University of Michigan;MI;32;76;25458;10408;54078;39028;26510;57900;1;;
+;6;10;University of California, Los Angeles;CA;19;73;29266;10460;53974;35168;20759;59200;1;;
+;7;11;University of Maryland, College Park;MD;48;67;22098;13442;43246;34590;25131;59100;1;;
+;8;8;University of Wisconsin ? Madison;WI;50;56;20419;10529;39669;29779;26579;51000;1;;
+;9;20;University of Washington;WA;55;61;24355;9355;46659;31659;21532;52100;1;;
+;10;7;College of William and Mary;VA;33;83;31650;17736;53350;39436;25733;56400;1;;
+;11;9;North Carolina State University;NC;51;44;19968;9953;36319;26304;20482;47500;1;;
+;12;18;University of Georgia;GA;56;61;21912;13160;40122;31370;21638;46500;1;;
+;13;31;University of Texas at Austin;TX;40;52;22012;12894;46882;37764;27207;52800;1;;
+;14;22;New College of Florida;FL;60;57;17048;8567;40076;31595;17553;NA;1;;
+;15;5;Truman State University;MO;74;57;16936;10142;23475;16681;23585;42700;1;;
+;16;15;Florida State University;FL;55;61;17571;12631;32737;27797;24347;44000;1;;
+;17;12;Ohio State University;OH;53;62;22951;13616;40279;30944;26830;42600;1;;
+;18;29;University of California, Santa Barbara;CA;36;69;29563;11615;54271;36323;21045;52000;1;;
+;19;37;Purdue University;IN;59;46;21252;9508;40054;28310;28343;52600;1;;
+;20;28;University of California, San Diego;CA;33;57;27801;10177;51825;34201;21790;59600;1;;
+;21;19;New Mexico Institute of Mining and Technology;NM;36;22;15265;9756;27789;22280;20944;52800;1;;
+;22;16;Binghamton University, State University of New York;NY;44;68;23251;15186;36371;28306;25727;58400;1;;
+;23;24;Georgia Institute of Technology;GA;33;37;23720;14198;43912;34390;24891;74000;1;;
+;24;36;Clemson University;SC;53;61;23908;15318;42826;34236;30213;49400;1;;
+;25;4;University of Minnesota, Twin Cities Campus;MN;45;59;24104;14716;32524;23136;26796;47800;1;;
+;26;17;University of Illinois at Urbana?Champaign;IL;59;69;27836;14245;42996;29405;23808;56600;1;;
+;27;34;Virginia Polytechnic Institute and State University;VA;69;61;21881;15145;38525;31789;27865;57900;1;;
+;28;30;Appalachian State University;NC;63;44;15397;7340;29222;21165;21693;36600;1;;
+;29;50;University of California, Irvine;CA;37;68;29446;12129;54154;36837;20319;55800;1;;
+;30;32;Stony Brook University, State University of New York;NY;41;48;21787;14526;36867;29606;24884;55500;1;;
+;31;21;College of New Jersey;NJ;49;73;29154;17080;40085;28011;33635;56800;1;;
+;32;35;University of Connecticut;CT;50;67;26388;17634;47932;39178;24999;53900;1;;
+;33;38;University of Texas at Dallas;TX;62;51;22950;14358;42472;33880;19613;49500;1;;
+;34;41;James Madison University;VA;66;65;20290;12677;35414;27801;23732;53400;1;;
+;35;48;Texas A&M University;TX;71;50;20960;11645;39553;30238;25005;52900;1;;
+;36;47;University of Central Florida;FL;50;40;17068;12115;33167;28214;23378;43000;1;;
+;37;13;State University of New York College at Geneseo;NY;59;66;21093;15375;30943;25225;23308;46700;1;;
+;38;25;University of Pittsburgh;PA;53;65;29854;21769;40620;32535;36466;48200;1;;
+;39;64;University of California, Davis;CA;41;54;30044;13051;54752;37759;19705;57100;1;;
+;40;71;Michigan State University;MI;66;53;24102;14515;46902;37315;26122;49800;1;;
+;41;63;University of North Carolina Wilmington;NC;59;49;17239;14812;31105;28678;25644;38700;1;;
+;42;42;University of Delaware;DE;66;68;25466;16475;44366;35375;32705;54300;1;;
+;43;23;Baruch College of the City University of New York;NY;28;35;24498;17628;34968;28098;7737;54000;1;;
+;44;89;Indiana University Bloomington;IN;76;59;21412;11275;44765;34628;27300;45300;1;;
+;45;26;University of South Florida;FL;47;39;17010;10113;27925;21028;22719;41700;1;;
+;46;51;University of Alabama;AL;51;39;20170;10992;35950;26772;29320;42400;1;;
+;47;40;Rutgers University ? New Brunswick;NJ;60;59;27535;16540;42925;31930;25228;54800;1;;
+;48;68;University of North Carolina at Asheville;NC;73;38;16287;9659;31901;25273;21105;36000;1;;
+;49;57;Penn State University Park;PA;50;66;30274;23287;44106;37119;36935;47500;1;;
+;50;33;Miami University;OH;66;66;27071;18317;43771;35017;28887;45800;1;;
+;51;49;University of Missouri;MO;78;46;20441;11658;36098;27315;25321;46000;1;;
+;52;74;University of South Carolina;SC;65;56;22896;17804;41712;36620;28233;42100;1;;
+;53;66;University at Buffalo, the State University of New York;NY;58;53;23638;18211;38718;33291;21228;49700;1;;
+;54;55;State University of New York at New Paltz;NY;42;55;20817;15977;30667;25827;25874;46000;1;;
+;55;52;University of Arkansas;AR;62;37;19402;12696;32706;26000;24120;43600;1;;
+;56;62;University of Massachusetts Amherst;MA;61;63;27384;17731;43717;34064;30453;49600;1;;
+;57;95;University of Iowa;IA;81;48;19072;11449;38858;31235;28716;48700;1;;
+;58;53;University of Northern Iowa;IA;54;38;17037;12686;27225;22874;23163;41700;1;;
+;59;43;St. Mary's College of Maryland;MD;79;73;27175;16231;42025;31081;24621;48200;1;;
+;60;27;California State University, Long Beach;CA;36;15;20080;13542;25768;19230;16579;46900;1;;
+;61;65;Missouri University of Science and Technology;MO;86;23;19970;12510;36494;29034;27591;65500;1;;
+;62;56;University of Oklahoma;OK;81;37;20546;14551;33932;27937;23151;46600;1;;
+;63;44;University of Wisconsin?La Crosse;WI;76;33;14708;8993;22659;16944;25932;44100;1;;
+;64;60;Oklahoma State University;OK;75;35;16998;10383;30198;23583;22591;43400;1;;
+;65;61;University of Science and Arts of Oklahoma;OK;64;26;12940;4749;21880;13689;20074;30700;1;;
+;66;80;Louisiana Tech University;LA;65;30;16024;7649;33022;24647;16855;41100;1;;
+;67;59;University of North Florida;FL;61;26;17441;11381;31159;25099;19253;41600;1;;
+;68;67;Iowa State University of Science and Technology;IA;87;40;16840;10026;29960;23146;28880;47200;1;;
+;69;46;University of Maryland, Baltimore County;MD;60;34;23074;15117;35838;27881;25435;53500;1;;
+;70;83;Louisiana State University and Agricultural & Mechanical College;LA;77;39;22414;12317;39577;29480;22294;45900;1;;
+;71;69;University of Tennessee;TN;75;39;23960;14999;42150;33189;23870;42300;1;;
+;72;77;Florida International University;FL;48;24;18722;13051;31122;25451;18519;45100;1;;
+;73;76;Western Carolina University;NC;43;40;16321;10163;26714;20556;23806;35100;1;;
+;74;81;Auburn University;AL;83;42;24208;16768;41824;34384;27782;45400;1;;
+;75;72;University of Nebraska ? Lincoln;NE;70;33;19659;12562;33826;26729;23395;43800;1;;
+;76;73;Purchase College, State University of New York;NY;41;58;22050;15536;31900;25386;26348;34700;1;;
+;77;86;West Chester University of Pennsylvania;PA;53;44;18789;13227;29607;24045;30881;46500;1;;
+;78;97;University of California, Santa Cruz;CA;57;55;30052;11927;54760;36635;22583;44600;1;;
+;79;39;University of Minnesota, Morris;MN;64;54;21550;11670;21550;11670;24538;38800;1;;
+;80;79;Christopher Newport University;VA;56;55;24380;18733;35678;30031;29385;42400;1;;
+;81;87;University of Mississippi;MS;81;37;18772;11209;32002;24439;26443;40600;1;;
+;82;45;Hunter College of the City University of New York;NY;35;22;22301;15754;32771;26224;13000;44800;1;;
+;83;54;State University of New York College at Oneonta;NY;43;53;20912;16203;30762;26053;15373;42400;1;;
+;84;84;University of Louisville;KY;74;25;19886;11181;34192;25487;23375;37700;1;;
+;85;96;University of Vermont;VT;73;65;29118;14382;51510;36774;27276;44000;1;;
+;86;75;State University of New York at Plattsburgh;NY;48;40;20344;13718;30194;23568;28149;40600;1;;
+;87;58;San Diego State University;CA;34;30;24606;14706;35766;25866;18400;48700;1;;
+;88;78;Arizona State University at the Tempe campus;AZ;84;43;22620;13613;37600;28593;21920;45200;1;;
+;89;85;Western Washington University;WA;85;40;20069;11006;32421;23358;21520;43200;1;;
+;90;94;University of Colorado Boulder;CO;84;46;26085;15705;49119;38739;25126;48000;1;;
+;91;82;Ramapo College of New Jersey;NJ;53;58;26738;17609;35603;26474;29972;48700;1;;
+;92;70;Salisbury University;MD;55;45;21396;15515;29742;23861;24567;47300;1;;
+;93;100;University of Oregon;OR;75;46;23142;15649;44877;37384;24508;41600;1;;
+;94;98;University of California, Riverside;CA;58;44;30939;14173;55647;38881;21166;48700;1;;
+;95;93;Georgia College & State University;GA;76;40;22282;17828;40630;36176;22950;38500;1;;
+;96;88;College at Brockport, State University of New York;NY;49;50;20594;14640;29944;23990;27677;40100;1;;
+;97;99;University of Arizona;AZ;75;40;22443;11717;43670;32944;22761;44400;1;;
+;98;90;Texas Tech University;TX;66;33;19172;11985;30872;23685;27879;46100;1;;
+;99;92;Colorado State University;CO;80;40;22492;15743;39201;32452;23721;44300;1;;
+;100;91;Towson University;MD;59;43;21900;13584;33506;25190;25926;49500;1;;
+1;;;Princeton University;NJ;7;90;;;58660;16563;6600;75100;0;0;0
+2;;;Harvard University;MA;6;86;;;61659;17229;15117;87200;0;0;20827
+3;;;Vanderbilt University;TN;13;88;;;61470;21517;20790;60900;0;20;22372
+4;;;Rice University;TX;15;82;;;56703;21749;22241;59900;0;21;13730
+5;;;Yale University;CT;6;87;;;63250;17540;14853;66000;0;0;0
+6;;;Duke University;NC;11;87;;;64593;22683;20556;76700;0;21;20714
+7;;;California Institute of Technology;CA;9;85;;;60084;22527;12104;74000;0;0;0
+8;;;Massachusetts Institute of Technology;MA;8;81;;;61434;24344;19064;91600;0;0;0
+9;;;Stanford University;CA;5;76;;;61852;20232;19230;80900;0;0;8980
+10;;;Emory University;GA;27;84;;;60668;23011;24741;59000;0;5;22538
+11;;;Dartmouth College;NH;12;88;;;65094;22831;21533;67100;0;0;0
+12;;;Brown University;RI;9;85;;;63496;22579;24300;59700;0;0;9452
+13;;;University of Pennsylvania;PA;10;87;;;64776;24732;19442;78200;0;0;0
+14;;;Cornell University;NY;14;87;;;63684;26125;21411;70900;0;0;0
+15;;;Northwestern University;IL;13;85;;;65603;27929;19864;64100;0;8;2480
+16;;;University of Notre Dame;IN;21;90;;;62825;29800;26674;69400;0;12;15804
+17;;;Georgetown University;DC;17;91;;;64385;27507;22464;83300;0;0;0
+18;;;Johns Hopkins University;MD;15;88;;;64960;30498;23627;69200;0;3;30165
+19;;;Boston College;MA;34;88;;;63930;29201;21099;67000;0;3;19189
+20;;;Washington University in St. Louis;MO;17;90;;;64350;28795;23858;62300;0;18;8665
+21;;;Brigham Young University;UT;47;30;;;18622;13725;14021;57400;0;37;3944
+22;;;Tufts University;MA;17;88;;;65308;28161;26616;67800;0;3;500
+23;;;Lehigh University;PA;34;76;;;59510;26515;31877;76800;0;9;12424
+24;;;Wake Forest University;NC;34;83;;;62078;26527;34745;61000;0;10;16055
+25;;;Trinity University;TX;48;72;;;51218;25409;35318;53200;0;81;16583
+26;;;University of Southern California;CA;18;76;;;65632;34976;28541;66100;0;27;19014
+27;;;Clark University;MA;54;72;;;50940;25114;24990;44100;0;68;16362
+28;;;University of Rochester;NY;36;73;;;63966;28890;30604;55500;0;53;13617
+29;;;Elon University;NC;54;76;;;44070;30348;27176;44500;0;28;6603
+30;;;Santa Clara University;CA;49;78;;;60489;37334;26759;67700;0;43;13120
+31;;;Bentley University;MA;46;83;;;59805;30780;30602;74900;0;33;16761
+32;;;Yeshiva University;NY;82;59;;;52004;25772;24101;55600;0;36;21840
+33;;;Creighton University;NE;73;71;;;47916;25251;33428;57800;0;68;14200
+34;;;Brandeis University;MA;35;85;;;64454;32178;28855;58800;0;10;17895
+35;;;Villanova University;PA;49;85;;;61273;31644;35122;73700;0;11;14067
+36;;;Drake University;IA;69;70;;;44392;27723;31546;55700;0;72;12889
+37;;;University of Miami;FL;38;69;;;59720;33770;26793;52400;0;35;18846
+38;;;George Washington University;DC;44;72;;;63760;33843;31128;64500;0;36;18756
+39;;;Case Western Reserve University;OH;38;64;;;59610;32627;33343;67000;0;61;22087
+40;;;Drury University;MO;81;46;;;34495;19508;25336;32200;0;77;8263
+41;;;Pepperdine University;CA;35;75;;;63652;26359;31884;61400;0;31;18974
+42;;;Gonzaga University;WA;68;73;;;49917;30612;29513;52800;0;87;12083
+43;;;Emerson College;MA;49;77;;;57752;40612;23606;44800;0;18;14675
+44;;;Stevens Institute of Technology;NJ;44;40;;;61690;48382;26722;82800;0;78;17765
+45;;;Franciscan University of Steubenville;OH;78;61;;;34280;24292;32443;35500;0;55;5438
+46;;;Carnegie Mellon University;PA;25;72;;;65895;35827;31905;72000;0;6;10867
+47;;;Boston University;MA;35;80;;;63956;34102;39166;60600;0;11;17594
+48;;;Tulane University;LA;28;70;;;64022;35789;31653;52400;0;37;21325
+49;;;Samford University;AL;82;48;;;38770;24724;26543;45800;0;67;9636
+50;;;Butler University;IN;68;62;;;50065;31361;35797;52400;0;82;11979
+51;;;University of Portland;OR;63;73;;;53112;31131;26557;51700;0;83;14965
+52;;;American University;DC;46;76;;;58257;35500;32546;55900;0;21;13989
+53;;;New York University;NY;35;72;;;66400;42154;27977;58800;0;9;7512
+54;;;University of Tulsa;OK;40;52;;;51401;45539;29161;43200;0;64;17829
+55;;;University of Dayton;OH;59;59;;;52280;31772;35278;52300;0;63;12540
+56;;;Maryville University of Saint Louis;MO;72;49;;;38998;24675;31696;44500;0;32;9559
+57;;;Marist College;NY;39;68;;;49000;33553;34801;54400;0;46;7619
+58;;;Saint Louis University;MO;60;61;;;51066;30775;35615;55200;0;52;13880
+59;;;Illinois Institute of Technology;IL;51;28;;;56066;27804;31907;68200;0;65;19854
+60;;;Marquette University;WI;67;59;;;49398;31616;35211;55600;0;83;10294
+61;;;University of Denver;CO;76;66;;;57620;29023;29050;51400;0;58;14724
+62;;;Simmons College;MA;52;67;;;52700;29064;26000;51400;0;49;14030
+63;;;Oklahoma City University;OK;66;49;;;41908;25826;27819;39400;0;50;18931
+64;;;Whitworth University;WA;75;65;;;50698;27724;26132;41200;0;78;16897
+65;;;Mercer University;GA;67;50;;;47110;23067;30018;46600;0;74;19145
+66;;;University of San Diego;CA;46;67;;;58392;33954;30225;56300;0;27;14025
+67;;;Bradley University;IL;64;51;;;42380;27364;27277;52400;0;70;10012
+68;;;Union University;TN;69;59;;;39880;33994;29187;37400;0;32;12889
+69;;;Providence College;RI;63;83;;;59730;36870;32475;59600;0;31;20050
+70;;;Rockhurst University;MO;77;62;;;45890;42681;24971;47600;0;20;20636
+71;;;Duquesne University;PA;73;65;;;46596;28537;34522;54300;0;76;10804
+72;;;Loyola Marymount University;CA;53;69;;;58663;39261;30243;55600;0;50;9432
+73;;;Belmont University;TN;83;56;;;40970;28874;28306;39100;0;32;7438
+74;;;Southern Methodist University;TX;52;67;;;64765;45091;34671;52200;0;49;20479
+75;;;Loyola University Chicago;IL;63;65;;;54936;36061;31089;50600;0;52;13220
+76;;;LeTourneau University;TX;49;35;;;39030;23908;38211;50000;0;15;8037
+77;;;Clarkson University;NY;62;58;;;59890;30711;28000;68400;0;74;19191
+78;;;Geneva College;PA;71;53;;;36080;20891;32673;37500;0;40;9952
+79;;;Rensselaer Polytechnic Institute;NY;38;61;;;66172;37645;41814;81700;0;70;15860
+80;;;Rochester Institute of Technology;NY;57;30;;;49564;30564;26000;56900;0;38;10000
+81;;;Fairfield University;CT;72;77;;;59545;43863;27918;69000;0;55;15452
+82;;;Syracuse University;NY;53;69;;;59610;32840;34584;56600;0;21;10290
+83;;;Fordham University;NY;48;75;;;64679;40796;35170;55400;0;44;14594
+84;;;Valparaiso University;IN;82;60;;;47880;25447;35449;48100;0;62;13003
+85;;;Seattle Pacific University;WA;83;60;;;48480;22533;28844;43900;0;66;20277
+86;;;Saint Michael's College;VT;80;73;;;53005;31006;36967;46300;0;64;14525
+87;;;University of St. Thomas;MN;87;60;;;48525;30173;37131;54300;0;24;15098
+88;;;Centenary College of Louisiana;LA;66;42;;;47450;25541;27692;39300;0;98;15863
+89;;;Loyola University Maryland;MD;60;77;;;59925;37360;34190;62100;0;27;14675
+90;;;University of Evansville;IN;83;53;;;45386;22608;29441;40000;0;60;17045
+91;;;Baldwin Wallace University;OH;64;51;;;39792;23591;32526;44000;0;48;12080
+92;;;Chapman University;CA;47;58;;;62650;46808;27979;51800;0;44;17071
+93;;;Howard University;DC;48;42;;;40784;33493;32071;46500;0;25;24835
+94;;;Lipscomb University;TN;56;45;;;41156;37357;30480;39000;0;61;13435
+95;;;St. John Fisher College;NY;68;61;;;43250;28190;32982;44800;0;76;10061
+96;;;St. Bonaventure University;NY;70;55;;;43317;24418;35627;45200;0;91;12572
+97;;;Rollins College;FL;57;63;;;59914;33279;26689;42200;0;55;19134
+98;;;Bethel University;MN;95;63;;;45060;26843;33685;44000;0;49;10497
+99;;;Nazareth College of Rochester;NY;70;65;;;45803;30476;35396;43900;0;70;15594
+100;;;Xavier University;OH;73;63;;;47460;31715;34365;48800;0;69;13774

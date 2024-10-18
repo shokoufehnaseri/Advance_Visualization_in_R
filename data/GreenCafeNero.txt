@@ -1,0 +1,32 @@
+nazwa,ulica,miasto
+Adgar Wave,Wincentego Rzymowskiego 53,Warszawa
+Adgar Plaza,Postępu 17a,Warszawa
+Platinium,Domaniewska 42,Warszawa
+Rzeczpospolitej,Aleja Rzeczypospolitej 27,Warszawa
+Klumczaka, Franciszka Klimczaka 1,Warszawa
+Puławska,Puławska 23/25,Warszawa
+Plac Unii,plac Unii Lubelskiej 1,Warszawa
+MDM,plac Konstytucji 1,Warszawa
+pl. Narutowicza,Filtrowa 70,Warszawa
+Koszykowa,Koszykowa 54,Warszawa
+Piękna, Piękna 18,Warszawa
+Marszałkowska,Marszałkowska 84/92,Warszawa
+Jerozolimskie,Aleje Jerozolimskie 11/19,Warszawa
+Złote Tarasy, Złota 59,Warszawa
+Bracka,Bracka 16,Warszawa
+Żelazna,Żelazna 32,Warszawa
+Chmielna,Chmielna 32,Warszawa
+Moniuszki,Marszałkowska 124,Warszawa
+Rondo ONZ,aleja Jana Pawła II 18,Warszawa
+Hilton Warsaw Hotel,Grzybowska 63,Warszawa
+Grzybowska,Grzybowska 5A,Warszawa
+Uniwersytet.Krakowskie Przedmieście 20/22,Warszawa
+Al. Jana Pawła II,aleja Jana Pawła II 29,Warszawa
+Metropolitan,plac Marszałka Józefa Piłsudskiego 1,Warszawa
+Green Caffe Nero,aleja Solidarności 117,Warszawa
+Plac Zamkowy,Krakowskie Przedmieście 81,Warszawa
+Green Caffe Nero,Kijowska 16,Warszawa
+CH Arkadia,aleja Jana Pawła II 82,Warszawa
+CH Łomianki, Brukowa 25,Warszawa
+Telimena,Krakowskie Przedmieście 27,Warszawa
+Niepodległości,aleja Niepodległości 227/233,Warszawa
