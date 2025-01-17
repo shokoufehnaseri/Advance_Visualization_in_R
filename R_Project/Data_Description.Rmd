@@ -1,0 +1,72 @@
+---
+title: "Data Descriptions"
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+title: "Dataset Description"
+output: html_document
+---
+
+# Introduction
+
+This dataset contains **195 rows** (countries) and **35 columns** (features), providing detailed information about various demographic, economic, geographic, and social indicators for countries worldwide.
+
+Reference link: [https://gist.github.com/vr-23/d6a4a0aadcf3a2640091ca43c25e1955](https://gist.github.com/vr-23/d6a4a0aadcf3a2640091ca43c25e1955)
+
+
+
+---
+
+# Key Features
+
+Below is a detailed description of the columns in the dataset:
+
+- **Country** *(chr)*: The name of the country.
+- **Density (P/Km²)** *(dbl)*: Population density measured as the number of people per square kilometer.
+- **Abbreviation** *(chr)*: Two-letter country code.
+- **Agricultural Land (%)** *(chr)*: Percentage of land area used for agriculture.
+- **Land Area (Km²)** *(dbl)*: Total land area of the country in square kilometers.
+- **Armed Forces Size** *(dbl)*: Number of personnel in the country's armed forces.
+- **Birth Rate** *(dbl)*: Annual births per 1,000 people.
+- **Calling Code** *(dbl)*: Country's international telephone calling code.
+- **Capital/Major City** *(chr)*: Name of the country's capital or major city.
+- **CO₂ Emissions** *(dbl)*: Total carbon dioxide emissions (in kilotons).
+- **CPI** *(dbl)*: Consumer Price Index, measuring inflation.
+- **CPI Change (%)** *(chr)*: Percentage change in CPI over a period.
+- **Currency-Code** *(chr)*: Code of the official currency.
+- **Fertility Rate** *(dbl)*: Average number of children born per woman.
+- **Forested Area (%)** *(chr)*: Percentage of land covered by forests.
+- **Gasoline Price** *(chr)*: Price of gasoline per liter in USD.
+- **GDP** *(chr)*: Gross Domestic Product of the country in USD.
+- **Gross Primary Education Enrollment (%)** *(chr)*: Percentage of eligible children enrolled in primary education.
+- **Gross Tertiary Education Enrollment (%)** *(chr)*: Percentage of eligible population enrolled in tertiary education.
+- **Infant Mortality** *(dbl)*: Deaths of infants under one year per 1,000 live births.
+- **Largest City** *(chr)*: Name of the country's largest city.
+- **Life Expectancy** *(dbl)*: Average life expectancy at birth in years.
+- **Maternal Mortality Ratio** *(dbl)*: Maternal deaths per 100,000 live births.
+- **Minimum Wage** *(chr)*: Minimum wage in USD per hour.
+- **Official Language** *(chr)*: Official language(s) of the country.
+- **Out-of-Pocket Health Expenditure (%)** *(chr)*: Percentage of total health expenditure paid out-of-pocket.
+- **Physicians per Thousand** *(dbl)*: Number of physicians per 1,000 people.
+- **Population** *(dbl)*: Total population of the country.
+- **Population: Labor Force Participation (%)** *(chr)*: Percentage of the population participating in the labor force.
+- **Tax Revenue (%)** *(chr)*: Tax revenue as a percentage of GDP.
+- **Total Tax Rate** *(chr)*: Total tax rate as a percentage of profits.
+- **Unemployment Rate** *(chr)*: Percentage of the labor force that is unemployed.
+- **Urban Population** *(dbl)*: Number of people living in urban areas.
+- **Latitude** *(dbl)*: Latitude coordinate of the country.
+- **Longitude** *(dbl)*: Longitude coordinate of the country.
+
+---
+
+# Observations
+
+1. Some columns, such as percentages (e.g., `Agricultural Land`, `CPI Change`), are stored as strings with symbols like `%` and may require conversion to numeric values for analysis.
+2. Several columns contain missing values (`NA`), which may need imputation or handling during data preprocessing.
+3. Monetary values (e.g., `GDP`, `Gasoline Price`, `Minimum Wage`) and tax rates may require standardization for cross-country comparisons.
+4. Geospatial features (`Latitude`, `Longitude`) enable mapping or clustering based on geographic proximity.
