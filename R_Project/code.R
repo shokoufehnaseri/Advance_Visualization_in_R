@@ -463,70 +463,378 @@ ggplot() +
 
 # ============== Shokoufeh ============================================================
 
-# Load necessary libraries
+# Subset for CO2 emissions and public health outcomes
+co2_health_data <- new_data %>%
+  select(Country, Density, CO2Emissions, AgriculturalLand , BirthRate , ForestedArea , GasolinePrice, 
+         InfantMortality, MaternalMortality , HealthExpenditure , PhysiciansPerThousand ,Population ,
+         UrbanPopulation,  
+         Latitude  , Longitude, LifeExpectancy, InfantMortality)
+co2_cause_data <- new_data %>% select(Country, Density, CO2Emissions, AgriculturalLand  , ForestedArea , GasolinePrice, 
+                                      Population ,
+                                      UrbanPopulation,  
+                                      Latitude  , Longitude)
+co2_effect_data <- new_data %>%
+  select(Country, CO2Emissions , BirthRate , 
+         InfantMortality, MaternalMortality , HealthExpenditure , PhysiciansPerThousand ,
+        Latitude  , Longitude, LifeExpectancy, InfantMortality)
+
+
+
+################### "Lower Triangular Correlation Bubble Chart: CO2 Emissions Causes and Effects"#############
+
+
 library(ggplot2)
+library(reshape2)
 library(dplyr)
+
+
+
+# Compute correlation matrix
+cor_matrix <- cor(co2_health_data %>% select(-Country, -Latitude, -Longitude), use = "complete.obs")
+
+
+# Melt the correlation matrix for ggplot
+cor_melt <- melt(cor_matrix)
+
+# Filter to show only the lower triangular part
+cor_melt <- cor_melt %>% 
+  mutate(Var1 = as.character(Var1), Var2 = as.character(Var2)) %>% 
+  filter(as.numeric(factor(Var1)) > as.numeric(factor(Var2)))
+
+# Plot correlation bubble chart
+ggplot(cor_melt, aes(x = Var1, y = Var2, size = abs(value), fill = value)) +
+  geom_point(shape = 21, color = "white") +
+  geom_text(
+    aes(label = ifelse(abs(value) > 0.7, sprintf("%.2f", value), "")),
+    color = "black", size = 3
+  ) +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0, limit = c(-1, 1), name = "Corr") +
+  scale_size(range = c(1, 10), name = "Abs(Corr)") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  labs(
+    title = "Lower Triangular Correlation Bubble Chart: CO2 Emissions Causes and Effects",
+    x = NULL,
+    y = NULL
+  )
+
+
+############################## Global CO2 Emissions with Urban Population ###########
+
+library(ggplot2)
 library(maps)
 
-# Load world map data
+# Load world map
 world_map <- map_data("world")
 
-# Example data (replace `new_data` with your actual dataset)
-# Ensure your data includes columns: Country, Longitude, Latitude, CO2Emissions, GasolinePrice
-
-# Plot CO2 Emissions with Gasoline Price as color
+# Plot CO2 emissions and Gasoline Price
 ggplot() +
-  # Base map layer
   geom_polygon(data = world_map, aes(x = long, y = lat, group = group), fill = "lightgray", color = "white") +
-  
-  # Points for CO2 Emissions, colored by Gasoline Price
-  geom_point(data = new_data, aes(x = Longitude, y = Latitude, size = CO2Emissions, color = as.numeric(GasolinePrice)), alpha = 0.7) +
-  
-  # Customize color scale
-  scale_color_gradient(low = "blue", high = "red", name = "Gasoline Price (USD)") +
-  
-  # Customize size scale
-  scale_size_continuous(range = c(1, 10), name = "CO2 Emissions (kt)") +
-  
-  # Add labels and theme
+  geom_point(data = co2_health_data, aes(x = Longitude, y = Latitude, size = CO2Emissions, color = UrbanPopulation), alpha = 0.7) +
+  scale_size_continuous(range = c(1, 15), name = "CO2 Emissions (kt)") +
+  scale_color_gradient(low = "blue", high = "red", name = "Urban Population") +
   labs(
-    title = "CO2 Emissions Across the World",
-    subtitle = "Colored by Gasoline Price",
+    title = "Global CO2 Emissions with Urban Population",
+    subtitle = "Bubble size represents CO2 emissions",
     x = "Longitude",
     y = "Latitude"
   ) +
+  theme_minimal()
+
+###################### Bubble size represents CO2 emissions; Top 10 countries labeled ###########
+library(ggplot2)
+library(maps)
+library(dplyr)
+
+# Load world map
+world_map <- map_data("world")
+
+# Select the top 10 countries by CO2 emissions
+top_countries <- co2_health_data %>%
+  arrange(desc(CO2Emissions)) %>%
+  slice(1:10)
+
+# Plot CO2 emissions and Gasoline Price
+ggplot() +
+  geom_polygon(data = world_map, aes(x = long, y = lat, group = group), fill = "lightgray", color = "white") +
+  geom_point(data = co2_health_data, aes(x = Longitude, y = Latitude, size = CO2Emissions, color = UrbanPopulation), alpha = 0.7) +
+  geom_text(data = top_countries, aes(x = Longitude, y = Latitude, label = Country), 
+            size = 3, vjust = -1, color = "black") + # Add country names
+  scale_size_continuous(range = c(1, 15), name = "CO2 Emissions (kt)") +
+  scale_color_gradient(low = "blue", high = "red", name = "Urban Population") +
+  labs(
+    title = "Global CO2 Emissions with Urban Population",
+    subtitle = "Bubble size represents CO2 emissions; Top 10 countries labeled",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal()
+
+############### Bump plot: Comparison of Top 10 Countries: Urban Population vs CO2 Emissions ###########
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Rank countries by UrbanPopulation and CO2Emissions
+ranked_data <- co2_health_data %>%
+  mutate(
+    Urban_Rank = dense_rank(desc(UrbanPopulation)),
+    CO2_Rank = dense_rank(desc(CO2Emissions))
+  ) %>%
+  filter(Urban_Rank <= 10 | CO2_Rank <= 10)  # Keep only top 10 in either metric
+
+# Reshape data for bump chart
+bump_data <- ranked_data %>%
+  pivot_longer(
+    cols = c(Urban_Rank, CO2_Rank),
+    names_to = "Metric",
+    values_to = "Rank"
+  ) %>%
+  mutate(
+    Metric = ifelse(Metric == "Urban_Rank", "Urban Population", "CO2 Emissions"),
+    Metric = factor(Metric, levels = c("Urban Population", "CO2 Emissions"))
+  )
+
+# Create the bump chart
+ggplot(bump_data, aes(x = Metric, y = Rank, group = Country, color = Country)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  geom_text(data = bump_data %>% filter(Metric == "Urban Population"), 
+            aes(label = Country), hjust = 1.2, size = 3, show.legend = FALSE) +
+  geom_text(data = bump_data %>% filter(Metric == "CO2 Emissions"), 
+            aes(label = Country), hjust = -0.2, size = 3, show.legend = FALSE) +
+  scale_y_reverse(breaks = 1:10) +
+  labs(
+    title = "Comparison of Top 10 Countries: Urban Population vs CO2 Emissions",
+    x = "",
+    y = "Rank",
+    color = "Country"
+  ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 16),
-    plot.subtitle = element_text(hjust = 0.5, size = 12)
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+
+########
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Rank countries by UrbanPopulation and CO2Emissions
+ranked_data <- co2_health_data %>%
+  mutate(
+    Urban_Rank = dense_rank(desc(UrbanPopulation)),
+    CO2_Rank = dense_rank(desc(CO2Emissions))
+  ) %>%
+  filter(Urban_Rank <= 10 | CO2_Rank <= 10)  # Keep only top 10 in either metric
+
+# Reshape data for bump chart
+bump_data <- ranked_data %>%
+  pivot_longer(
+    cols = c(Urban_Rank, CO2_Rank),
+    names_to = "Metric",
+    values_to = "Rank"
+  ) %>%
+  mutate(
+    Metric = ifelse(Metric == "Urban_Rank", "Urban Population", "CO2 Emissions"),
+    Metric = factor(Metric, levels = c("Urban Population", "CO2 Emissions"))
+  )
+
+# Create the bump chart with ForestedArea as color
+ggplot(bump_data, aes(x = Metric, y = Rank, group = Country, color = ForestedArea)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  geom_text(data = bump_data %>% filter(Metric == "Urban Population"), 
+            aes(label = Country), hjust = 1.2, size = 3, show.legend = FALSE) +
+  geom_text(data = bump_data %>% filter(Metric == "CO2 Emissions"), 
+            aes(label = Country), hjust = -0.2, size = 3, show.legend = FALSE) +
+  scale_y_reverse(breaks = 1:10) +
+  scale_color_gradient(low = "yellow", high = "darkgreen", name = "Forested Area (%)") +
+  labs(
+    title = "Comparison of Top 10 Countries: Urban Population vs CO2 Emissions",
+    x = "",
+    y = "Rank"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+#################
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Rank countries by UrbanPopulation and CO2Emissions
+ranked_data <- co2_health_data %>%
+  mutate(
+    Urban_Rank = dense_rank(desc(UrbanPopulation)),
+    CO2_Rank = dense_rank(desc(CO2Emissions))
+  ) %>%
+  filter(Urban_Rank <= 10 | CO2_Rank <= 10)  # Keep only top 10 in either metric
+
+# Reshape data for bump chart
+bump_data <- ranked_data %>%
+  pivot_longer(
+    cols = c(Urban_Rank, CO2_Rank),
+    names_to = "Metric",
+    values_to = "Rank"
+  ) %>%
+  mutate(
+    Metric = ifelse(Metric == "Urban_Rank", "Urban Population", "CO2 Emissions"),
+    Metric = factor(Metric, levels = c("Urban Population", "CO2 Emissions"))
+  )
+
+# Create the bump chart with ForestedArea as color and GasolinePrice as size
+ggplot(bump_data, aes(x = Metric, y = Rank, group = Country, color = ForestedArea, size = GasolinePrice)) +
+  geom_line(size = 1.2) +
+  geom_point(alpha = 0.8) +
+  geom_text(data = bump_data %>% filter(Metric == "Urban Population"), 
+            aes(label = Country), hjust = 1.2, size = 3, show.legend = FALSE) +
+  geom_text(data = bump_data %>% filter(Metric == "CO2 Emissions"), 
+            aes(label = Country), hjust = -0.2, size = 3, show.legend = FALSE) +
+  scale_y_reverse(breaks = 1:10) +
+  scale_color_gradient(low = "yellow", high = "darkgreen", name = "Forested Area (%)") +
+  scale_size_continuous(range = c(2, 10), name = "Gasoline Price (USD)") +
+  labs(
+    title = "Comparison of Top 10 Countries: Urban Population vs CO2 Emissions",
+    x = "",
+    y = "Rank"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5)
   )
 
 
 
+#################  Raincloud Plot of Gasoline Price by CO2 Emissions Category #############
+# Install and load the necessary libraries
+#install.packages("ggplot2")
+#install.packages("ggdist")
+library(ggplot2)
+library(ggdist)
+library(rugarch)
+library(parallel)
+# Categorize CO2 emissions into Low, Medium, and High
+low_threshold <- quantile(co2_health_data$CO2Emissions, 0.33)
+high_threshold <- quantile(co2_health_data$CO2Emissions, 0.66)
+
+co2_health_data$CO2_Category <- cut(co2_health_data$CO2Emissions,
+                                    breaks = c(-Inf, low_threshold, high_threshold, Inf),
+                                    labels = c("Low", "Medium", "High"),
+                                    right = FALSE)
+ggsave("raincloud_plot.png", width = 3, height = 3)
+
+# Create the raincloud plot for GasolinePrice
+ggplot(co2_health_data, aes(x = CO2_Category, y = GasolinePrice, fill = CO2_Category)) +
+  
+  # Add half-violin plot from {ggdist} package
+  stat_halfeye(
+    adjust = 0.3,
+    justification = -0.1,
+    .width = 0,
+    point_colour = NA
+  ) +
+  
+  # Add boxplot to show the central tendency and spread
+  geom_boxplot(
+    width = 0.12,
+    outlier.color = NA,
+    alpha = 0.5
+  ) +
+  
+
+  # Set the plot labels and theme
+  labs(title = "Raincloud Plot of Gasoline Price by CO2 Emissions Category",
+       x = "CO2 Emissions Category",
+       y = "Gasoline Price") +
+  theme_minimal()
+############################
 
 
 
 
+######################## "Raincloud Plot of Forest Area by CO2 Emissions Category"
+library(ghibli)
+library(ggdist)
+
+ggplot(co2_health_data, aes(x = CO2_Category, y = ForestedArea, fill = CO2_Category)) +
+  # Set manual color palette for CO2_Category
+  scale_fill_manual(values = c("Low" = "green", "Medium" = "yellow", "High" = "red")) +
+  
+  # Add boxplot
+  geom_boxplot(width = 0.1) +
+  
+  # Customize theme
+  theme_classic(base_size = 18, base_family = "serif") +
+  theme(
+    text = element_text(size = 18),
+    axis.text.x = element_text(angle = 0, hjust = 0.5, vjust = 0.5, color = "black"),
+    axis.text.y = element_text(color = "black"),
+    plot.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    legend.position = "none"
+  ) +
+  
+  # Customize y-axis
+  scale_y_continuous(expand = c(0, 0)) +
+  
+  # Add dots
+  stat_dots(
+    side = "left",
+    justification = 1.12,
+    binwidth = NA
+  ) +
+  
+  # Add half-violin plot
+  stat_halfeye(
+    adjust = 0.5,
+    width = 0.6,
+    justification = -0.2,
+    .width = 0,
+    point_colour = NA
+  )+
+# Set the plot labels and theme
+labs(title = "Raincloud Plot of Forest Area by CO2 Emissions Category",
+     x = "CO2 Emissions Category",
+     y = "Forest Area") +
+  theme_minimal()
 
 
+################################## Impact Analysis with Boxplots
 
+# Reshape effect data for visualization
+library(tidyr)
+effect_long <- co2_effect_data %>%
+  select(Country, CO2Emissions, LifeExpectancy, InfantMortality, MaternalMortality) %>%
+  pivot_longer(cols = c(LifeExpectancy, InfantMortality, MaternalMortality), names_to = "Effect", values_to = "Value")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Boxplot
+ggplot(effect_long, aes(x = Effect, y = Value, fill = CO2Emissions)) +
+  geom_boxplot(outlier.color = "red", alpha = 0.7) +
+  scale_fill_gradient(low = "blue", high = "red", name = "CO2 Emissions (kt)") +
+  theme_minimal() +
+  labs(
+    title = "Impact of CO2 Emissions on Health Metrics",
+    x = "Health Metric",
+    y = "Value"
+  )
 
 
 
