@@ -815,6 +815,189 @@ labs(title = "Raincloud Plot of Forest Area by CO2 Emissions Category",
      x = "CO2 Emissions Category",
      y = "Forest Area") +
   theme_minimal()
+#######################################################################
+
+
+mean_forested_area <- mean(data$ForestedArea)
+
+data$AboveAverage <- ifelse(data$ForestedArea > mean_forested_area, "Above Average", "Below Average")
+
+
+ggplot(data, aes(x = reorder(Country, ForestedArea), y = ForestedArea, fill = AboveAverage)) +
+  geom_bar(stat = "identity", width = 0.7) +
+  geom_hline(yintercept = mean_forested_area, linetype = "dashed", color = "red", size = 1) +  
+  scale_fill_manual(values = c("Above Average" = "turquoise", "Below Average" = "tomato")) +
+  labs(
+    title = "Bar Plot of Forest Area by Country",
+    x = "Country",
+    y = "Forested Area",
+    caption = paste("Mean Forested Area:", round(mean_forested_area, 2))
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    axis.text.y = element_text(size = 10, color = "black"),
+    axis.text.x = element_text(size = 10, color = "black")
+  )
+
+
+
+
+
+#######################################
+
+mean_GasolinePrice <- mean(data$GasolinePrice)
+
+data$AboveAverage <- ifelse(data$GasolinePrice > mean_GasolinePrice, "Above Average", "Below Average")
+
+
+ggplot(data, aes(x = reorder(Country, GasolinePrice), y = GasolinePrice, fill = AboveAverage)) +
+  geom_bar(stat = "identity", width = 0.7) +
+  geom_hline(yintercept = mean_GasolinePrice, linetype = "dashed", color = "red", size = 1) +  
+  scale_fill_manual(values = c("Above Average" = "turquoise", "Below Average" = "tomato")) +
+  labs(
+    title = "Bar Plot of Gasoline Price by Country",
+    x = "Country",
+    y = "Gasoline Price",
+    caption = paste("Mean Gasoline Price:", round(mean_GasolinePrice, 2))
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    axis.text.y = element_text(size = 10, color = "black"),
+    axis.text.x = element_text(size = 10, color = "black")
+  )
+
+
+################################ "Raincloud Plot of Gasoline Price by CO2 Emissions Category
+
+ggplot(co2_health_data, aes(x = CO2_Category, y = GasolinePrice, fill = CO2_Category)) +
+  # Set manual color palette for CO2_Category
+  scale_fill_manual(values = c("Low" = "green", "Medium" = "yellow", "High" = "red")) +
+  
+  # Add boxplot
+  geom_boxplot(width = 0.1) +
+  
+  # Customize theme
+  theme_classic(base_size = 18, base_family = "serif") +
+  theme(
+    text = element_text(size = 18),
+    axis.text.x = element_text(angle = 0, hjust = 0.5, vjust = 0.5, color = "black"),
+    axis.text.y = element_text(color = "black"),
+    plot.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    legend.position = "none"
+  ) +
+  
+  # Customize y-axis
+  scale_y_continuous(expand = c(0, 0)) +
+  
+  # Add dots
+  stat_dots(
+    side = "left",
+    justification = 1.12,
+    binwidth = NA
+  ) +
+  
+  # Add half-violin plot
+  stat_halfeye(
+    adjust = 0.5,
+    width = 0.6,
+    justification = -0.2,
+    .width = 0,
+    point_colour = NA
+  )+
+  # Set the plot labels and theme
+  labs(title = "Raincloud Plot of Gasoline Price by CO2 Emissions Category",
+       x = "CO2 Emissions Category",
+       y = "Gasoline Price") +
+  theme_minimal()
+################################  "Raincloud Plot of Life Expectancy by CO2 Emissions Category
+ggplot(co2_health_data, aes(x = CO2_Category, y = LifeExpectancy, fill = CO2_Category)) +
+  # Set manual color palette for CO2_Category
+  scale_fill_manual(values = c("Low" = "green", "Medium" = "yellow", "High" = "red")) +
+  
+  # Add boxplot
+  geom_boxplot(width = 0.1) +
+  
+  # Customize theme
+  theme_classic(base_size = 18, base_family = "serif") +
+  theme(
+    text = element_text(size = 18),
+    axis.text.x = element_text(angle = 0, hjust = 0.5, vjust = 0.5, color = "black"),
+    axis.text.y = element_text(color = "black"),
+    plot.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    legend.position = "none"
+  ) +
+  
+  # Customize y-axis
+  scale_y_continuous(expand = c(0, 0))  +
+  
+  # Add dots
+  stat_dots(
+    side = "left",
+    justification = 1.12,
+    binwidth = NA
+  ) +
+  
+  # Add half-violin plot
+  stat_halfeye(
+    adjust = 0.5,
+    width = 0.6,
+    justification = -0.2,
+    .width = 0,
+    point_colour = NA
+  )+
+  # Set the plot labels and theme
+  labs(title = "Raincloud Plot of Life Expectancy by CO2 Emissions Category",
+       x = "CO2 Emissions Category",
+       y = "Life Expectancy") +
+  theme_minimal()
+
+##################333
+
+ggplot(co2_health_data, aes(x = CO2_Category, y = InfantMortality, fill = CO2_Category)) +
+  # Set manual color palette for CO2_Category
+  scale_fill_manual(values = c("Low" = "green", "Medium" = "yellow", "High" = "red")) +
+  
+  # Add boxplot
+  geom_boxplot(width = 0.1) +
+  
+  # Customize theme
+  theme_classic(base_size = 18, base_family = "serif") +
+  theme(
+    text = element_text(size = 18),
+    axis.text.x = element_text(angle = 0, hjust = 0.5, vjust = 0.5, color = "black"),
+    axis.text.y = element_text(color = "black"),
+    plot.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    legend.position = "none"
+  ) +
+  
+  # Customize y-axis
+  scale_y_continuous(expand = c(0, 0))  +
+  
+  # Add dots
+  stat_dots(
+    side = "left",
+    justification = 1.12,
+    binwidth = NA
+  ) +
+  
+  # Add half-violin plot
+  stat_halfeye(
+    adjust = 0.5,
+    width = 0.6,
+    justification = -0.2,
+    .width = 0,
+    point_colour = NA
+  )+
+  # Set the plot labels and theme
+  labs(title = "Raincloud Plot of Infant Mortality by CO2 Emissions Category",
+       x = "CO2 Emissions Category",
+       y = "Infant Mortality") +
+  theme_minimal()
 
 
 ################################## Impact Analysis with Boxplots
@@ -836,10 +1019,152 @@ ggplot(effect_long, aes(x = Effect, y = Value, fill = CO2Emissions)) +
     y = "Value"
   )
 
+#########################Visualize interaction effects between CO2 emissions and urban population on life expectancy.
+library(ggplot2)
+library(hexbin)
+
+ggplot(new_data, aes(x = CO2Emissions, y = LifeExpectancy)) +
+  geom_hex(bins = 30) +
+  scale_fill_viridis_c() +
+  labs(title = "Hexbin Plot of CO2 Emissions vs Life Expectancy",
+       x = "CO2 Emissions (kt)",
+       y = "Life Expectancy (years)",
+       fill = "Density") +
+  theme_minimal()
+###############################
+library(ggExtra)
+
+p <- ggplot(new_data, aes(x = CO2Emissions, y = LifeExpectancy)) +
+  geom_point(alpha = 0.7, color = "blue") +
+  labs(title = "Scatterplot with Marginal Histograms",
+       x = "CO2 Emissions (kt)",
+       y = "Life Expectancy (years)") +
+  theme_minimal()
+
+ggMarginal(p, type = "histogram", fill = "lightblue")
+
+############
+library(reshape2)
+library(ggplot2)
+
+cor_data <- new_data[, c("CO2Emissions", "LifeExpectancy", "InfantMortality", "HealthExpenditure", "UrbanPopulation")]
+cor_matrix <- cor(cor_data, use = "complete.obs")
+melted_cor <- melt(cor_matrix)
+
+ggplot(melted_cor, aes(Var1, Var2, fill = value)) +
+  geom_tile(color = "white") +
+  scale_fill_viridis_c() +
+  labs(title = "Correlation Heatmap",
+       fill = "Correlation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+##########################
+ggplot(new_data, aes(x = CO2Emissions, y = LifeExpectancy, size = UrbanPopulation)) +
+  geom_point(alpha = 0.6, color = "darkred") +
+  scale_size(range = c(1, 20)) +
+  labs(title = "Bubble Plot of CO2 Emissions vs Life Expectancy",
+       size = "CO2 Emissions (kt)",
+       y = "Life Expectancy (years)",
+       x = "Urban Population") +
+  theme_minimal()
+##########
+library(ggridges)
+
+ggplot(co2_health_data, aes(x = LifeExpectancy, y = CO2_Category, fill = CO2_Category)) +
+  geom_density_ridges(scale = 2, alpha = 0.8) +
+  scale_fill_viridis_d() +
+  labs(title = "Ridgeline Plot of Life Expectancy by CO2 Emission Quartiles",
+       x = "Life Expectancy (years)",
+       y = "CO2 Emission Quartiles") +
+  theme_ridges() +
+  theme(legend.position = "none")
+
+####################
 
 
+ggplot(co2_health_data, aes(x = "", fill = CO2_Category)) +
+  geom_bar(width = 1) +
+  coord_polar(theta = "y") +
+  labs(title = "Proportion of Countries by Health Expenditure Quartiles",
+       fill = "Health Expenditure Quartile") +
+  theme_void()
+######################
+
+# Calculate percentage
+co2_health_data <- co2_health_data %>%
+  count(CO2_Category) %>%
+  mutate(percentage = n / sum(n) * 100)
+
+# Plot with percentages and improved aesthetics
+ggplot(co2_health_data, aes(x = "", y = percentage, fill = CO2_Category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  geom_text(aes(label = paste0(round(percentage, 1), "%")), 
+            position = position_stack(vjust = 0.5), color = "white", size = 5) +
+  labs(title = "Proportion of Countries by CO2 Emission Categories",
+       fill = "CO2 Emission Category") +
+  scale_fill_viridis_d() +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    legend.position = "bottom",
+    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 10)
+  )
 
 
+################
+library(ggalt)
+
+ggplot(new_data, aes(y = reorder(Country, CO2Emissions), x = CO2Emissions, xend = HealthExpenditure)) +
+  geom_dumbbell(color = "grey", size = 1, dot_guide = TRUE, dot_guide_size = 0.5,
+                point.colour.l = "blue", point.colour.r = "red") +
+  labs(title = "Dumbbell Plot of CO2 Emissions vs Health Expenditure",
+       x = "Value",
+       y = "Country") +
+  theme_minimal()
+#########################
+ggplot(new_data, aes(x = CO2Quartile, y = InfantMortality, fill = CO2Quartile)) +
+  geom_violin(alpha = 0.7) +
+  labs(title = "Violin Plot of Infant Mortality by CO2 Emission Quartiles",
+       x = "CO2 Emission Quartiles",
+       y = "Infant Mortality") +
+  scale_fill_viridis_d() +
+  theme_minimal()
+###########################
+
+######################
+
+# 1. Bump Chart ----------------------------------------------------------------
+# shipping volume rank
+
+head(ports)
+summary(ports$year)				  
+ports <- ports %>%
+  filter(rank <= 15) %>% 
+  mutate(china_flag = ifelse(economy == "China", T, F)) %>% 
+  mutate(china_labels = ifelse(china_flag == T, port, "other"))
+
+ports %>% 
+  filter(port == 'Shanghai')
+
+ports %>% 
+  filter(port == 'Dalian')
+
+ggplot(data = ports, aes(x = year, y = rank, group = port_label)) +
+  geom_line(aes(color = china_labels, alpha = china_flag), size = 2) +
+  geom_point(aes(color = china_labels, alpha = china_flag), size = 2.3, shape = 21, fill = 'white') +
+  geom_text(data = ports %>% filter(year == "2014", rank <= 15),
+            aes(label = port_label, x = year) , hjust = -.05, color = "#888888", size = 4) + 
+  geom_text(data = ports %>% filter(year == "2004", rank <= 15),
+            aes(label = port_label, x = year) , hjust = 1.05, color = "#888888", size = 4) +
+  scale_x_discrete(expand = c(.2, .2)) +
+  scale_y_reverse(breaks = seq(1, 15)) +
+  labs(title = "Top15 biggest ports in the world", x = "Year", y = "Rank") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "none")
 
 
 
