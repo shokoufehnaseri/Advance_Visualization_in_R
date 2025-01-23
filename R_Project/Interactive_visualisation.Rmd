@@ -1,0 +1,184 @@
+---
+title: "Interactive Graphs"
+author: "Anastasiia Sviridova, Shokoufeh Naseri"
+date: "2025-01-24"
+output: html_document
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE}
+Sys.setenv(LANG = "en")
+options(scipen = 5)
+setwd("C:/Users/User/Documents/3 semester/ad vis in r/project/R_Project")
+getwd()
+
+# Install ggpubr if not already installed
+if (!requireNamespace("ggpubr", quietly = TRUE)) {
+  install.packages("ggpubr")
+}
+
+# Install countrycode if not already installed
+if (!requireNamespace("countrycode", quietly = TRUE)) {
+  install.packages("countrycode")
+}
+# Install and load plotly for interactive visualizations
+if (!requireNamespace("plotly", quietly = TRUE)) {
+  install.packages("plotly")
+}
+
+# Load the package
+library(plotly)
+library(ggpubr)
+library(countrycode)
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(corrplot)
+library(maps)
+```
+```{r include=FALSE}
+# Load the new dataset
+new_data <- read.csv("cleaned_dataset.csv")
+
+# Subset for economic prosperity and health outcomes
+data <- new_data %>%
+  select(Country, GDP, MinimumWage, LifeExpectancy, InfantMortality, Latitude, Longitude)
+
+# Subset for CO2 emissions and public health outcomes
+co2_health_data <- new_data %>%
+  select(Country, CO2Emissions, LifeExpectancy, InfantMortality)
+
+# Subset for healthcare metrics and life expectancy
+healthcare_data <- new_data %>%
+  select(Country, PhysiciansPerThousand, HealthExpenditure, LifeExpectancy)
+```
+
+```{r include=FALSE}
+# Map countries to continents using the countrycode package
+data$Continent <- countrycode(data$Country, origin = "country.name", destination = "continent")
+
+
+# Custom breaks for GDP axis
+custom_gdp_breaks <- c(1e9, 1e10, 1e11, 1e12, 1e13)
+custom_gdp_labels <- c("1B", "10B", "100B", "1T", "10T")
+```
+
+
+### Interactive Visualizations
+
+These graphs allow us to explore the relationships between GDP, life expectancy, and infant mortality by hovering over data points for country-specific details.
+
+```{r echo=FALSE}
+# Create interactive visualizations
+create_interactive_visualizations <- function(data) {
+  # Interactive visualization for GDP and Life Expectancy
+  plot1 <- plot_ly(
+    data,
+    x = ~GDP,
+    y = ~LifeExpectancy,
+    type = 'scatter',
+    mode = 'markers',
+    text = ~paste("Country:", Country, "<br>GDP:", GDP, "<br>Life Expectancy:", LifeExpectancy),
+    marker = list(color = ~LifeExpectancy, colorscale = 'Viridis', size = ~log(GDP + 1))
+  ) %>%
+    layout(
+      title = "Interactive: GDP vs Life Expectancy",
+      xaxis = list(title = "GDP", type = "log"),
+      yaxis = list(title = "Life Expectancy")
+    )
+
+  # Interactive visualization for GDP and Infant Mortality
+  plot2 <- plot_ly(
+    data,
+    x = ~GDP,
+    y = ~InfantMortality,
+    type = 'scatter',
+    mode = 'markers',
+    text = ~paste("Country:", Country, "<br>GDP:", GDP, "<br>Infant Mortality:", InfantMortality),
+    marker = list(color = ~InfantMortality, colorscale = 'Reds', size = ~log(GDP + 1))
+  ) %>%
+    layout(
+      title = "Interactive: GDP vs Infant Mortality",
+      xaxis = list(title = "GDP", type = "log"),
+      yaxis = list(title = "Infant Mortality")
+    )
+
+  # Interactive visualization for Life Expectancy and Infant Mortality
+  plot3 <- plot_ly(
+    data,
+    x = ~LifeExpectancy,
+    y = ~InfantMortality,
+    type = 'scatter',
+    mode = 'markers',
+    text = ~paste("Country:", Country, "<br>Life Expectancy:", LifeExpectancy, "<br>Infant Mortality:", InfantMortality),
+    marker = list(color = ~LifeExpectancy, colorscale = 'Blues', size = ~log(GDP + 1))
+  ) %>%
+    layout(
+      title = "Interactive: Life Expectancy vs Infant Mortality",
+      xaxis = list(title = "Life Expectancy"),
+      yaxis = list(title = "Infant Mortality")
+    )
+
+  # Save interactive plots as HTML
+  htmlwidgets::saveWidget(plot1, "interactive_gdp_life_expectancy.html")
+  htmlwidgets::saveWidget(plot2, "interactive_gdp_infant_mortality.html")
+  htmlwidgets::saveWidget(plot3, "interactive_life_expectancy_infant_mortality.html")
+
+  return(list(plot1, plot2, plot3))
+}
+
+# Generate interactive visualizations
+interactive_plots <- create_interactive_visualizations(data)
+
+# Optionally print interactive plots in RStudio Viewer
+interactive_plots[[1]]
+interactive_plots[[2]]
+interactive_plots[[3]]
+
+
+```
+
+### Geospatial visualization for Life Expectancy
+
+This geospatial visualization allows us to easily identify regional disparities and patterns, with richer countries generally showing higher life expectancy.
+
+
+```{r echo=FALSE}
+# Interactive Global Life Expectancy Map
+world_map <- map_data("world") # Load world map data
+
+interactive_map <- plot_ly(width = 1200, height = 700) %>%
+  add_polygons(
+    data = world_map,
+    x = ~long,
+    y = ~lat,
+    split = ~group,
+    line = list(width = 0.5),
+    fillcolor = 'lightgray',
+    hoverinfo = 'none'
+  ) %>%
+  add_markers(
+    data = data,
+    x = ~Longitude,
+    y = ~Latitude,
+    text = ~paste("Country:", Country, "<br>Life Expectancy:", LifeExpectancy),
+    color = ~LifeExpectancy,
+    colors = c("red", "green"),
+    marker = list(size = 8, opacity = 0.7)
+  ) %>%
+  layout(
+    title = "Interactive Global Life Expectancy",
+    xaxis = list(title = "Longitude", range = c(-180, 180)),
+    yaxis = list(title = "Latitude", range = c(-60, 90)),
+    showlegend = FALSE
+  )
+
+# Display the interactive map
+interactive_map
+
+```
+
+
