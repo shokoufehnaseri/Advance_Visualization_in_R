@@ -7,7 +7,10 @@ options(scipen = 5)
 setwd("C:/Users/User/Documents/3 semester/ad vis in r/project/R_Project")
 getwd()
 
+install.packages("reshape2")
+
 # Load required libraries
+library(reshape2)
 library(ggplot2)
 library(dplyr)
 library(readr)
@@ -388,8 +391,8 @@ head(new_data)
 
 
 # Subset for economic prosperity and health outcomes
-economic_health_data <- new_data %>%
-  select(Country, GDP, MinimumWage, LifeExpectancy, InfantMortality)
+data <- new_data %>%
+  select(Country, GDP, MinimumWage, LifeExpectancy, InfantMortality, Latitude, Longitude)
 
 # Subset for CO2 emissions and public health outcomes
 co2_health_data <- new_data %>%
@@ -403,66 +406,246 @@ healthcare_data <- new_data %>%
 # How does economic prosperity, measured through GDP and minimum wage, influence life
 # expectancy and infant mortality?
 
-# Scatter plot for GDP vs Life Expectancy
-ggplot(economic_health_data, aes(x = GDP, y = LifeExpectancy)) +
-  geom_point(alpha = 0.6, color = "blue") +
-  geom_smooth(method = "lm", color = "red", se = TRUE) +
-  labs(title = "GDP vs Life Expectancy",
-       x = "GDP (in USD)",
-       y = "Life Expectancy (in years)") +
-  theme_minimal()
+# Converting GDP in billions
+data$GDP <- round(data$GDP / 1e9, 2)
+
+# GDP vs Life Expectancy
+ggplot(data, aes(x = GDP, y = LifeExpectancy)) +
+  geom_point(aes(size = MinimumWage, color = InfantMortality), alpha = 0.8) +
+  scale_x_log10(
+    breaks = c(1, 10, 100, 1000, 10000),
+    labels = c("1B", "10B", "100B", "1T", "10T"),
+    name = "GDP (in billions)"
+  ) +  
+  scale_color_gradient(
+    low = "blue", high = "red", name = "Infant Mortality"
+  ) +  
+  scale_size_continuous(
+    range = c(1, 10), name = "Minimum Wage"
+  ) +  
+  labs(
+    title = "GDP vs Life Expectancy",
+    y = "Life Expectancy"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5, size = 12, face = "italic"),
+    axis.title.x = element_text(size = 12, face = "bold"),
+    axis.title.y = element_text(size = 12, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold"),
+    legend.text = element_text(size = 9)
+  )
+
+# Minimum Wage vs Infant Mortality
+ggplot(data, aes(x = MinimumWage, y = InfantMortality)) +
+  geom_point(aes(color = LifeExpectancy, size = InfantMortality), alpha = 0.8) +
+  scale_color_gradient(low = "purple", high = "yellow") +  
+  labs(
+    title = "Minimum Wage vs Infant Mortality",
+    x = "Minimum Wage",
+    y = "Infant Mortality",
+    color = "Life Expectancy",
+    size = "Infant Mortality"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Density plot for Life Expectancy and Infant Mortality
+
+# Create the density plot for Life Expectancy
+life_expectancy_plot <- ggplot(data, aes(x = LifeExpectancy, fill = Continent)) +
+  geom_density(alpha = 0.7) +
+  scale_fill_brewer(palette = "Set3", name = "Continent") +
+  labs(
+    title = "Distribution of Life Expectancy by Continent",
+    x = "Life Expectancy",
+    y = "Density"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Create the density plot for Infant Mortality with adjusted X-axis limits
+infant_mortality_plot <- ggplot(data, aes(x = InfantMortality, fill = Continent)) +
+  geom_density(alpha = 0.7) +
+  scale_fill_brewer(palette = "Set3", name = "Continent") +
+  labs(
+    title = "Distribution of Infant Mortality by Continent",
+    x = "Infant Mortality (per 1000 births)",
+    y = "Density"
+  ) +
+  xlim(0, 50) +  # Focus on the range from 0 to 50
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Print both plots
+print(life_expectancy_plot)
+print(infant_mortality_plot)
+
 
 # Correlation analysis
-cor(economic_health_data$GDP, economic_health_data$LifeExpectancy, use = "complete.obs")
+
+# Select relevant columns for correlation analysis
+correlation_data <- data %>%
+  select(GDP, MinimumWage, LifeExpectancy, InfantMortality)
+
+# Compute the correlation matrix
+cor_matrix <- cor(correlation_data, use = "complete.obs")
+
+# Melt the correlation matrix for heatmap
+cor_melt <- melt(cor_matrix)
+
+# Create the heatmap with bold axis labels
+heatmap_plot <- ggplot(cor_melt, aes(Var1, Var2, fill = value)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(
+    low = "blue",
+    mid = "white",
+    high = "lightblue",
+    midpoint = 0,
+    name = "Correlation"
+  ) +
+  labs(
+    title = "Correlation Heatmap of Economic and Health Variables",
+    x = "",
+    y = ""
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )   
+
+# Print the heatmap
+print(heatmap_plot)
+
+# Trends of Life Expectancy and Infant Mortality Across GDP Levels
+
+# Prepare the data for plotting
+trend_data <- data %>%
+  mutate(GDP_Bin = cut(GDP, 
+                       breaks = c(0, 10, 50, 100, 500, 1000, Inf), 
+                       labels = c("Low", "Lower-Middle", "Middle", "Upper-Middle", "High", "Very High"))) %>%
+  group_by(GDP_Bin) %>%
+  summarise(
+    AvgLifeExpectancy = mean(LifeExpectancy, na.rm = TRUE),
+    AvgInfantMortality = mean(InfantMortality, na.rm = TRUE)
+  ) %>%
+  tidyr::pivot_longer(
+    cols = c(AvgLifeExpectancy, AvgInfantMortality),
+    names_to = "Metric",
+    values_to = "Value"
+  )
+
+#Plot
+ggplot(trend_data, aes(x = GDP_Bin, y = Value, group = Metric, color = Metric)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  scale_color_manual(
+    values = c("AvgLifeExpectancy" = "blue", "AvgInfantMortality" = "red"),
+    labels = c("Infant Mortality", "Life Expectancy")
+  ) +
+  labs(
+    title = "Trends of Life Expectancy and Infant Mortality Across GDP Levels",
+    x = "GDP Levels",
+    y = "Average Value",
+    color = "Metric"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
+# Top-10 Countries by Life Expectancy Plot
+
+top10_life_expectancy <- data %>%
+  arrange(desc(LifeExpectancy)) %>%
+  head(10)
+
+ggplot(top10_life_expectancy, aes(x = reorder(Country, -LifeExpectancy), y = LifeExpectancy)) +
+  geom_col(aes(fill = GDP), show.legend = TRUE, width = 0.7, color = "black") +
+  scale_fill_gradient(
+    low = "#9ecae1", 
+    high = "#08306b", 
+    name = "GDP (in billions)", # Add "in billions"
+    guide = guide_colorbar(
+      barwidth = 15, 
+      barheight = 1, 
+      title.position = "top"
+    ),
+    labels = scales::label_number(scale = 1)  # Display values as-is
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+  labs(
+    title = "Top-10 Countries by Life Expectancy",
+    x = "",
+    y = "Life Expectancy"  # Refined Y-axis label
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(size = 14, hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12, face = "bold"),
+    axis.text.y = element_text(size = 12),
+    axis.title = element_text(size = 14),
+    legend.position = "top",
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 10)
+  )
+
+# Bottom-10 Countries by Life Expectancy Plot with Infant Mortality
+
+bottom10_life_expectancy <- data %>%
+  arrange(LifeExpectancy) %>%
+  head(10)
+
+ggplot(bottom10_life_expectancy, aes(x = reorder(Country, LifeExpectancy), y = LifeExpectancy)) +
+  geom_col(aes(fill = InfantMortality), show.legend = TRUE, width = 0.7, color = "black") +
+  scale_fill_gradient(
+    low = "#fee8c8", 
+    high = "#e34a33", 
+    name = "Infant Mortality", 
+    guide = guide_colorbar(
+      barwidth = 15, 
+      barheight = 1, 
+      title.position = "top"
+    ),
+    labels = scales::label_number(scale = 1)  # Display values as-is
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+  labs(
+    title = "Bottom-10 Countries by Life Expectancy",
+    x = "",
+    y = "Life Expectancy"  
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(size = 14, hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12, face = "bold"),
+    axis.text.y = element_text(size = 12),
+    axis.title = element_text(size = 14),
+    legend.position = "top",
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 10)
+  )
+
 
 # ============== RQ2 ============================================================
 # What is the relationship between CO2 emissions and public health outcomes?
-
-# Scatter plot for CO2 Emissions vs Life Expectancy
-ggplot(co2_health_data, aes(x = CO2Emissions, y = LifeExpectancy)) +
-  geom_point(alpha = 0.6, color = "green") +
-  geom_smooth(method = "lm", color = "darkgreen", se = TRUE) +
-  labs(title = "CO2 Emissions vs Life Expectancy",
-       x = "CO2 Emissions (tons)",
-       y = "Life Expectancy (in years)") +
-  theme_minimal()
-
-# Correlation analysis
-cor(co2_health_data$CO2Emissions, co2_health_data$LifeExpectancy, use = "complete.obs")
-
-# ============== RQ3 ============================================================
-# How do healthcare metrics (such as availability of physicians and out-of-pocket health
-# expenditures) correlate with life expectancy in different countries?
-
-# Scatter plot for Physicians per Thousand vs Life Expectancy
-ggplot(healthcare_data, aes(x = PhysiciansPerThousand, y = LifeExpectancy)) +
-  geom_point(alpha = 0.6, color = "purple") +
-  geom_smooth(method = "lm", color = "darkblue", se = TRUE) +
-  labs(title = "Physicians per Thousand vs Life Expectancy",
-       x = "Physicians per Thousand",
-       y = "Life Expectancy (in years)") +
-  theme_minimal()
-
-# Correlation analysis
-cor(healthcare_data$PhysiciansPerThousand, healthcare_data$LifeExpectancy, use = "complete.obs")
-
-# ============== Geospatial Analysis ============================================================
-
-# Geospatial visualization for Life Expectancy
-world_map <- map_data("world") # Load world map data
-
-ggplot() +
-  geom_polygon(data = world_map, aes(x = long, y = lat, group = group), fill = "lightgray") +
-  geom_point(data = new_data, aes(x = Longitude, y = Latitude, color = LifeExpectancy), size = 3) +
-  scale_color_gradient(low = "red", high = "green") +
-  labs(title = "Global Life Expectancy",
-       x = "Longitude",
-       y = "Latitude") +
-  theme_minimal()
-
-
-# ============== Shokoufeh ============================================================
-
 # Subset for CO2 emissions and public health outcomes
 co2_health_data <- new_data %>%
   select(Country, Density, CO2Emissions, AgriculturalLand , BirthRate , ForestedArea , GasolinePrice, 
