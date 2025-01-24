@@ -455,6 +455,9 @@ ggplot(data, aes(x = MinimumWage, y = InfantMortality)) +
     plot.title = element_text(hjust = 0.5)
   )
 
+# Map countries to continents using the countrycode package
+data$Continent <- countrycode(data$Country, origin = "country.name", destination = "continent")
+
 # Density plot for Life Expectancy and Infant Mortality
 
 # Create the density plot for Life Expectancy
